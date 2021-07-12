@@ -5,23 +5,89 @@ using UnityEngine;
 
 public class Racer : MonoBehaviour
 {
-    [Header("Duration of pathing")]
-    public float maxDuration = 20f;
-    public float minDuration = 15f;
+    [Header("Speed")]
+    public float maxSpeed = 10f;
+    public float minSpeed = 5f;
 
-    [Header("Path")]
-    public GameObject path;
+    [Header("Pathing")]
+    public List<Vector3> path;
+    public float distanceToRegisterWaypoint = 0.1f;
 
-    private float duration;
+    private float speed;
     private List<Vector3> waypoints = new List<Vector3>();
+    private int numWaypoints;
+    private int currWaypoint;
+    private bool isReturning;
+    private bool finishedRace;
 
     void Start()
     {
-        duration = Random.Range(minDuration, maxDuration);
+        speed = 0f; // Speed 0 until user starts race
+        finishedRace = true;
+        isReturning = true;
+        currWaypoint = 0;
         waypoints.Add(transform.position);
-        foreach (Transform point in path.transform) {
-            waypoints.Add(point.position);
+        foreach (Vector3 point in path)
+        {
+            waypoints.Add(point);
         }
-        Tween t = transform.DOPath(waypoints.ToArray(), duration, PathType.Linear).SetOptions(true).SetLookAt(0.01f).SetEase(Ease.Linear);
+        numWaypoints = waypoints.Count - 1;
+    }
+
+    void Update()
+    {
+        Vector3 direction = waypoints[currWaypoint] - transform.position;
+        if (!finishedRace) {
+            if (direction.magnitude < distanceToRegisterWaypoint)
+            {
+                if (isReturning && finishedRace)
+                {
+                    speed = 0f;
+                }
+                else
+                {
+                    UpdateWaypoint();
+                    RandomiseSpeed();
+                }
+            }
+            transform.position += direction.normalized * speed * Time.deltaTime;
+            transform.LookAt(waypoints[currWaypoint]);
+        }
+    }
+
+    void UpdateWaypoint()
+    {
+        if (currWaypoint < numWaypoints)
+        {
+            currWaypoint++;
+        }
+        else
+        {
+            if (isReturning)
+            {
+                finishedRace = true;
+            }
+            isReturning = true;
+            waypoints.Reverse();
+            currWaypoint = 0;
+        }
+    }
+
+    void RandomiseSpeed()
+    {
+        speed = Random.Range(minSpeed, maxSpeed);
+    }
+
+    public bool IsFinished()
+    {
+        return finishedRace;
+    }
+
+    public void StartRace()
+    {
+        finishedRace = false;
+        isReturning = false;
+        RandomiseSpeed();
+        currWaypoint = 0;
     }
 }
