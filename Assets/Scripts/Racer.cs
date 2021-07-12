@@ -1,49 +1,27 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Racer : MonoBehaviour
 {
-    [Header("Speed")]
-    public float maxSpeed = 10f;
-    public float minSpeed = 5f;
+    [Header("Duration of pathing")]
+    public float maxDuration = 20f;
+    public float minDuration = 15f;
 
     [Header("Path")]
     public GameObject path;
-    public float distanceToRegisterWaypoint = 1f;
 
-    private float speed;
+    private float duration;
     private List<Vector3> waypoints = new List<Vector3>();
-    private int numWaypoints;
-    private int currWaypoint;
 
     void Start()
     {
-        speed = Random.Range(minSpeed, maxSpeed);
+        duration = Random.Range(minDuration, maxDuration);
+        waypoints.Add(transform.position);
         foreach (Transform point in path.transform) {
             waypoints.Add(point.position);
         }
-        numWaypoints = waypoints.Count - 1;
-    }
-
-    void Update()
-    {
-        Vector3 direction = waypoints[currWaypoint] - transform.position;
-        if (direction.magnitude < distanceToRegisterWaypoint) {
-            UpdateWaypoint();
-        }
-        transform.position += direction.normalized * speed * Time.deltaTime;
-    }
-
-    void UpdateWaypoint()
-    {
-        if (currWaypoint < numWaypoints)
-        {
-            currWaypoint++;
-        }
-        else
-        {
-            currWaypoint = 0;
-        }
+        Tween t = transform.DOPath(waypoints.ToArray(), duration, PathType.Linear).SetOptions(true).SetLookAt(0.01f).SetEase(Ease.Linear);
     }
 }
