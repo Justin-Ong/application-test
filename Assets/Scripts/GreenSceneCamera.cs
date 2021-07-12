@@ -49,13 +49,14 @@ public class GreenSceneCamera : MonoBehaviour
             }
         }
         center /= numRacers;
-        float objectSize = Mathf.Max(maxX - minX, maxY - minY, maxZ - minZ);
-        float cameraView = 2.0f * Mathf.Tan(0.5f * Mathf.Deg2Rad * Camera.main.fieldOfView);
-        float distance = objectSize / cameraView;
+        float viewArea = Mathf.Max(maxX - minX, maxY - minY, maxZ - minZ);
+        float distance = viewArea / Mathf.Sin(Camera.main.fieldOfView * Mathf.Deg2Rad * 0.5f);
+        distance *= 0.6f;
         if (distance < minCameraDistance)
         {
             distance = minCameraDistance;
         }
-        Camera.main.transform.position = center - distance * Camera.main.transform.forward;
+        Camera.main.transform.position = center;
+        Camera.main.transform.position += new Vector3(0, distance, 0);
     }
 }
