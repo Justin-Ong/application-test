@@ -5,16 +5,15 @@ using UnityEngine;
 public class GreenSceneCamera : MonoBehaviour
 {
     public float elevation;
-    public float cameraDistance = 1f;
-    public List<GameObject> racers = new List<GameObject>();
+    public float minCameraDistance = 1f;
 
     private List<Transform> racerTransforms = new List<Transform>();
+    private int numRacers;
 
     void Start()
     {
-        foreach (GameObject racer in racers) {
-            racerTransforms.Add(racer.transform);
-        }
+        racerTransforms = GreenSceneController.racerTransforms;
+        numRacers = racerTransforms.Count;
     }
 
     void LateUpdate()
@@ -49,12 +48,14 @@ public class GreenSceneCamera : MonoBehaviour
                 minZ = racerTransform.position.z;
             }
         }
-        center /= racers.Count;
+        center /= numRacers;
         float objectSize = Mathf.Max(maxX - minX, maxY - minY, maxZ - minZ);
         float cameraView = 2.0f * Mathf.Tan(0.5f * Mathf.Deg2Rad * Camera.main.fieldOfView);
-        float distance = cameraDistance * objectSize / cameraView;
-        distance += 0.5f * objectSize;
+        float distance = objectSize / cameraView;
+        if (distance < minCameraDistance)
+        {
+            distance = minCameraDistance;
+        }
         Camera.main.transform.position = center - distance * Camera.main.transform.forward;
-        //Camera.main.transform.LookAt(center);
     }
 }

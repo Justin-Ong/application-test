@@ -3391,7 +3391,7 @@ MonoBehaviour:
   - {fileID: 1902634953}
   - {fileID: 970965554}
   canvas: {fileID: 961850441}
-  startButton: {fileID: 1968423652}
+  startButton: {fileID: 1968423650}
 --- !u!65 &2038582081
 BoxCollider:
   m_ObjectHideFlags: 0
