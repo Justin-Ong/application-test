@@ -46,7 +46,6 @@ public class GreenSceneController : MonoBehaviour
 
     private void StopRace()
     {
-        racersFinished = 0;
         startButton.gameObject.SetActive(true);
     }
 
@@ -54,10 +53,8 @@ public class GreenSceneController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Racer>())
         {
-            if (other.gameObject.GetComponent<Racer>().IsFinished()) {
-                racersFinished++;
-                Debug.Log(other.gameObject.name + " has finished, total: " + racersFinished.ToString());
-            }
+            other.gameObject.GetComponent<Racer>().Stop();
+            racersFinished++;
         }
     }
 }

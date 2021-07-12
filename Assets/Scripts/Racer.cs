@@ -17,14 +17,14 @@ public class Racer : MonoBehaviour
     private List<Vector3> waypoints = new List<Vector3>();
     private int numWaypoints;
     private int currWaypoint;
-    private bool isReturning;
     private bool finishedRace;
+    private bool firstRace;
 
     void Start()
     {
         speed = 0f; // Speed 0 until user starts race
-        finishedRace = true;
-        isReturning = true;
+        firstRace = true;
+        finishedRace = false;
         currWaypoint = 0;
         waypoints.Add(transform.position);
         foreach (Vector3 point in path)
@@ -36,23 +36,23 @@ public class Racer : MonoBehaviour
 
     void Update()
     {
-        Vector3 direction = waypoints[currWaypoint] - transform.position;
-        if (!finishedRace) {
+        if (!finishedRace)
+        {
+            Vector3 direction = waypoints[currWaypoint] - transform.position;
             if (direction.magnitude < distanceToRegisterWaypoint)
             {
-                if (isReturning && finishedRace)
-                {
-                    speed = 0f;
-                }
-                else
-                {
-                    UpdateWaypoint();
-                    RandomiseSpeed();
-                }
+                UpdateWaypoint();
+                RandomiseSpeed();
             }
             transform.position += direction.normalized * speed * Time.deltaTime;
             transform.LookAt(waypoints[currWaypoint]);
         }
+    }
+
+    public void Stop()
+    {
+        speed = 0;
+        finishedRace = true;
     }
 
     void UpdateWaypoint()
@@ -63,13 +63,9 @@ public class Racer : MonoBehaviour
         }
         else
         {
-            if (isReturning)
-            {
-                finishedRace = true;
-            }
-            isReturning = true;
             waypoints.Reverse();
             currWaypoint = 0;
+            firstRace = false;
         }
     }
 
@@ -78,15 +74,13 @@ public class Racer : MonoBehaviour
         speed = Random.Range(minSpeed, maxSpeed);
     }
 
-    public bool IsFinished()
-    {
-        return finishedRace;
-    }
-
     public void StartRace()
     {
+        if (!firstRace)
+        {
+            waypoints.Reverse();
+        }
         finishedRace = false;
-        isReturning = false;
         RandomiseSpeed();
         currWaypoint = 0;
     }
