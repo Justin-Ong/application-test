@@ -18,7 +18,6 @@ public class GreenSceneController : MonoBehaviour
 
     void Start()
     {
-        numRacers = racers.Count;
         racersFinished = 0;
         foreach (GameObject racer in racers)
         {
@@ -34,13 +33,27 @@ public class GreenSceneController : MonoBehaviour
         }
     }
 
+    void RandomiseRacers()
+    {
+        List<GameObject> temp = new List<GameObject>(racers);
+        numRacers = Random.Range(6, racers.Count + 1);
+        racerTransforms.Clear();
+        for (int j = 0; j < numRacers; j++)
+        {
+            int index = Random.Range(0, temp.Count);
+            racerTransforms.Add(temp[index].transform);
+            temp.RemoveAt(index);
+        }
+    }
+
     public void StartRace()
     {
+        RandomiseRacers();
         racersFinished = 0;
         startButton.gameObject.SetActive(false);
-        foreach (GameObject racer in racers)
+        foreach (Transform racer in racerTransforms)
         {
-            racer.GetComponent<Racer>().StartRace();
+            racer.gameObject.GetComponent<Racer>().StartRace();
         }
     }
 
