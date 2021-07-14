@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyUp(reloadKey)) {
             Debug.Log("Reload scene");
-            SceneManager.LoadScene(currSceneName);
+            ChangeScene(currSceneName);
         }
     }
 
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         currSceneName = newScene;
         Debug.Log("Loading " + currSceneName);
+        DOTween.Clear(true); // Stop tweens before changing scenes to prevent errors
         return (SceneManager.LoadSceneAsync(newScene));
     }
 }
