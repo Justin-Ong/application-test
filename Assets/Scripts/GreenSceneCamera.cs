@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GreenSceneCamera : MonoBehaviour
 {
-    public float elevation;
-    public float minCameraDistance = 1f;
+    public float minCameraDistance = 20f;
+    public float maxZoomSpeed = 1f;
 
     private List<Transform> racerTransforms = new List<Transform>();
 
@@ -41,12 +41,11 @@ public class GreenSceneCamera : MonoBehaviour
         center /= racerTransforms.Count;
         float viewArea = Mathf.Max(maxX - minX, maxZ - minZ);
         float distance = viewArea / Mathf.Sin(Camera.main.fieldOfView * Mathf.Deg2Rad * 0.5f);
-        distance *= 0.6f;   // Constrain zoom out, not sure why 0.6 works
+        distance *= 0.6f;   // Constrain zoom out, 0.6 seems to work
         if (distance < minCameraDistance)
         {
             distance = minCameraDistance;
         }
-        Camera.main.transform.position = center;
-        Camera.main.transform.position += new Vector3(0, distance, 0);
+        transform.position = Vector3.Lerp(transform.position, center + Vector3.up * distance, maxZoomSpeed);
     }
 }
