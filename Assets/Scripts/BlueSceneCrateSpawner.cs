@@ -8,6 +8,7 @@ public class BlueSceneCrateSpawner : MonoBehaviour
     public GameObject cratePrefab;
     public int numSpawnedCrates = 20;
     public GameObject floor;
+    public GameObject roof;
     public float edgeBuffer = 0.5f;
 
     void Start()
@@ -23,7 +24,7 @@ public class BlueSceneCrateSpawner : MonoBehaviour
         Vector3 randomPos;
         for (int i = 0; i < numSpawnedCrates; i++)
         {
-            randomPos = new Vector3(Random.Range(minXBound + edgeBuffer, maxXBound - edgeBuffer), 0, Random.Range(minZBound + edgeBuffer, maxZBound - edgeBuffer));
+            randomPos = new Vector3(Random.Range(minXBound + edgeBuffer, maxXBound - edgeBuffer), Random.Range(edgeBuffer, roof.transform.position.y - edgeBuffer), Random.Range(minZBound + edgeBuffer, maxZBound - edgeBuffer));
             Instantiate(cratePrefab, randomPos, transform.rotation);
         }
     }
