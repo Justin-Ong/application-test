@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GreenSceneController : MonoBehaviour
 {
@@ -11,8 +10,8 @@ public class GreenSceneController : MonoBehaviour
 
     [Header("UI")]
     public Canvas canvas;
-    public Button startButton;
 
+    private GreenSceneUI uIHandler;
     private int numRacers;
     private int racersFinished;
 
@@ -23,6 +22,8 @@ public class GreenSceneController : MonoBehaviour
         {
             racerTransforms.Add(racer.transform);
         }
+        uIHandler = canvas.GetComponent<GreenSceneUI>();
+        uIHandler.Setup(racers);
     }
 
     void Update()
@@ -50,7 +51,7 @@ public class GreenSceneController : MonoBehaviour
     {
         RandomiseRacers();
         racersFinished = 0;
-        startButton.gameObject.SetActive(false);
+        uIHandler.HideButton();
         foreach (Transform racer in racerTransforms)
         {
             racer.gameObject.GetComponent<Racer>().StartRace();
@@ -59,7 +60,7 @@ public class GreenSceneController : MonoBehaviour
 
     private void StopRace()
     {
-        startButton.gameObject.SetActive(true);
+        uIHandler.ShowButton();
     }
 
     private void OnTriggerEnter(Collider other)

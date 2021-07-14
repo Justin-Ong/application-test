@@ -1120,7 +1120,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Size: {x: 0.08, y: 0.08, z: 0.08}
   m_Center: {x: 0, y: 0.05, z: 0}
 --- !u!1 &557959270
 GameObject:
@@ -2243,7 +2243,7 @@ GameObject:
   - component: {fileID: 970965556}
   - component: {fileID: 970965555}
   m_Layer: 0
-  m_Name: alien character
+  m_Name: John
   m_TagString: Racer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3983,6 +3983,7 @@ GameObject:
   - component: {fileID: 1143630864}
   - component: {fileID: 1143630863}
   - component: {fileID: 1143630862}
+  - component: {fileID: 1143630866}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4071,6 +4072,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1143630866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143630861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19be8f0b1246d16439f656ebca797749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameFontSize: 8
+  textMaterial: {fileID: 2100000, guid: 9ad269c99dcf42b7aedefd83dd5a7b9d, type: 2}
 --- !u!1 &1214952180
 GameObject:
   m_ObjectHideFlags: 0
@@ -5517,7 +5532,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.9, y: 0.9, z: 0.9}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &1932506487
 MonoBehaviour:
@@ -5674,7 +5689,6 @@ MonoBehaviour:
   - {fileID: 7984682470963790646}
   - {fileID: 5500480652207996809}
   canvas: {fileID: 1143630864}
-  startButton: {fileID: 441642666}
 --- !u!65 &2038582081
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6554,7 +6568,7 @@ GameObject:
   - component: {fileID: 540180473}
   - component: {fileID: 540180472}
   m_Layer: 0
-  m_Name: robotSphere
+  m_Name: Rollo
   m_TagString: Racer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6938,7 +6952,7 @@ GameObject:
   - component: {fileID: 1853299049}
   - component: {fileID: 1853299048}
   m_Layer: 0
-  m_Name: SlimePBR
+  m_Name: Squishy
   m_TagString: Racer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13757,7 +13771,7 @@ GameObject:
   - component: {fileID: 1902634955}
   - component: {fileID: 1902634954}
   m_Layer: 0
-  m_Name: Zombie1
+  m_Name: Zombie
   m_TagString: Racer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14564,7 +14578,7 @@ GameObject:
   - component: {fileID: 574667197}
   - component: {fileID: 574667198}
   m_Layer: 0
-  m_Name: Raptor_Animated_FBX_5K_Orange
+  m_Name: Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17521,7 +17535,7 @@ GameObject:
   - component: {fileID: 1922888387}
   - component: {fileID: 1922888386}
   m_Layer: 0
-  m_Name: HPCharacter
+  m_Name: Pvt Jenkins
   m_TagString: Racer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24481,7 +24495,7 @@ GameObject:
   - component: {fileID: 1871356499}
   - component: {fileID: 1871356498}
   m_Layer: 0
-  m_Name: DogPBR
+  m_Name: Sir Woofington
   m_TagString: Racer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
