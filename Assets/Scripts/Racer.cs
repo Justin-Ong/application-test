@@ -20,8 +20,11 @@ public class Racer : MonoBehaviour
     private bool finishedRace;
     private bool firstRace;
 
+    private Animator anim;
+
     void Start()
     {
+        anim = gameObject.GetComponent<Animator>();
         speed = 0f; // Speed 0 until user starts race
         firstRace = true;
         finishedRace = false;
@@ -53,6 +56,7 @@ public class Racer : MonoBehaviour
     {
         speed = 0;
         finishedRace = true;
+        anim.SetBool("isRunning", false);
     }
 
     void UpdateWaypoint()
@@ -83,5 +87,6 @@ public class Racer : MonoBehaviour
         finishedRace = false;
         RandomiseSpeed();
         currWaypoint = 0;
+        anim.SetBool("isRunning", true);
     }
 }
