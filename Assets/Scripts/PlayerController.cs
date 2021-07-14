@@ -35,11 +35,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyUp(menuKey) && currSceneName != "MenuScene") {
-            Debug.Log("Go to menu");
             ChangeScene("MenuScene");
         }
         else if (Input.GetKeyUp(reloadKey)) {
-            Debug.Log("Reload scene");
             ChangeScene(currSceneName);
         }
     }
@@ -47,7 +45,6 @@ public class PlayerController : MonoBehaviour
     public AsyncOperation ChangeScene(string newScene)
     {
         currSceneName = newScene;
-        Debug.Log("Loading " + currSceneName);
         DOTween.Clear(true); // Stop tweens before changing scenes to prevent errors
         return (SceneManager.LoadSceneAsync(newScene));
     }
