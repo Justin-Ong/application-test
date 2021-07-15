@@ -69,8 +69,8 @@ public class PlayerController : MonoBehaviour
 
             yield return null;
         }
-        float endTime = Time.time;
         System.GC.Collect();
+        float endTime = Time.time;
         yield return new WaitForSeconds(minLoadTime - (endTime - startTime));
         loadingScreen.gameObject.SetActive(false);
     }
