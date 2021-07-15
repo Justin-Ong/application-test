@@ -71,4 +71,9 @@ public class GreenSceneController : MonoBehaviour
             racersFinished++;
         }
     }
+
+    private void OnDestroy()
+    {
+        racerTransforms.Clear();
+    }
 }
