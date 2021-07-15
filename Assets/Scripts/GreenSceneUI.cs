@@ -10,12 +10,16 @@ public class GreenSceneUI : MonoBehaviour
     public Material textMaterial;
 
     private GameObject startButton;
+    private Transform mainCamera;
+    private float initialCameraDistance;
     private List<GameObject> racers;
     private Dictionary<GameObject, Transform> nameTags = new Dictionary<GameObject, Transform>();
 
     private void Start()
     {
         startButton = gameObject.transform.GetChild(0).gameObject;
+        mainCamera = Camera.main.transform;
+        initialCameraDistance = mainCamera.position.y;
     }
 
     private void LateUpdate()
@@ -23,6 +27,7 @@ public class GreenSceneUI : MonoBehaviour
         foreach (GameObject name in nameTags.Keys)
         {
             name.transform.position = nameTags[name].transform.position + Vector3.forward + Vector3.up;
+            name.GetComponent<TextMeshPro>().fontSize = nameFontSize * (mainCamera.position.y / initialCameraDistance);
         }
     }
 
@@ -38,12 +43,12 @@ public class GreenSceneUI : MonoBehaviour
         {
             GameObject newName = new GameObject(racer.name + " nametag");
             newName.transform.position = racer.transform.position + Vector3.forward + Vector3.up;
-            newName.AddComponent<TextMeshPro>();
-            newName.GetComponent<TextMeshPro>().text = racer.name;
-            newName.GetComponent<TextMeshPro>().fontSize = nameFontSize;
-            newName.GetComponent<TextMeshPro>().horizontalAlignment = HorizontalAlignmentOptions.Center;
-            newName.GetComponent<TextMeshPro>().verticalAlignment = VerticalAlignmentOptions.Middle;
-            newName.GetComponent<TextMeshPro>().material = textMaterial;
+            TextMeshPro newTextMesh = newName.AddComponent<TextMeshPro>();
+            newTextMesh.text = racer.name;
+            newTextMesh.fontSize = nameFontSize;
+            newTextMesh.horizontalAlignment = HorizontalAlignmentOptions.Center;
+            newTextMesh.verticalAlignment = VerticalAlignmentOptions.Middle;
+            newTextMesh.material = textMaterial;
             newName.transform.Rotate(new Vector3(90, 0, 0));    // Make nametag face up perpendicular to the ground
             nameTags.Add(newName, racer.transform);
         }
